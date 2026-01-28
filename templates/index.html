@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Legal Assistant | Professional Legal Guidance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-scale-balanced"></i>
+                <span>LexAI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#analyzer" class="nav-link">Analyzer</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professional AI Legal Assistant</h1>
+                <p>Intelligent case analysis powered by advanced AI and legal expertise</p>
+                <button class="cta-btn" onclick="scrollToAnalyzer()">
+                    <i class="fas fa-arrow-right"></i> Start Analysis
+                </button>
+            </div>
+            <div class="hero-illustration">
+                <i class="fas fa-gavel"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Powerful Legal Analysis Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Case Intake</h3>
+                    <p>Intelligent understanding and classification of legal issues</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-scales"></i>
+                    </div>
+                    <h3>IPC Analysis</h3>
+                    <p>Identify applicable Indian Penal Code sections</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Legal Precedents</h3>
+                    <p>Find relevant landmark cases and court decisions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Document Generation</h3>
+                    <p>Generate formal legal documents and advisories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Analyzer Section -->
+    <section id="analyzer" class="analyzer">
+        <div class="container">
+            <h2>Legal Case Analyzer</h2>
+            <div class="analyzer-panel">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <h3>Describe Your Legal Issue</h3>
+                    <form id="caseForm">
+                        <div class="form-group">
+                            <label for="caseDescription">Case Description</label>
+                            <textarea 
+                                id="caseDescription" 
+                                name="case_description" 
+                                placeholder="Describe your legal issue in detail. Include relevant facts, parties involved, and context..."
+                                required
+                                minlength="20"
+                            ></textarea>
+                            <small id="charCount">0 / 20 characters minimum</small>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-search"></i>
+                            <span>Analyze Case</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Output Section -->
+                <div class="output-section">
+                    <div id="emptyState" class="state-container">
+                        <div class="empty-icon">
+                            <i class="fas fa-inbox"></i>
+                        </div>
+                        <p>Your legal analysis will appear here</p>
+                    </div>
+
+                    <div id="loadingState" class="state-container" style="display: none;">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <p>Analyzing your case...</p>
+                    </div>
+
+                    <div id="resultsState" class="state-container" style="display: none;">
+                        <div class="results-header">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Analysis Complete</h4>
+                        </div>
+                        <div id="resultsContent" class="results-content"></div>
+                        <button class="new-case-btn" onclick="resetForm()">
+                            <i class="fas fa-redo"></i> Analyze Another Case
+                        </button>
+                    </div>
+
+                    <div id="errorState" class="state-container" style="display: none;">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <p id="errorMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>About AI Legal Assistant</h2>
+            <div class="contact-content">
+                <p>Our advanced AI Legal Assistant combines machine learning with legal expertise to provide intelligent case analysis. It helps you understand legal issues, identify applicable laws, and generate formal documentation.</p>
+                <div class="disclaimer-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p><strong>Important Disclaimer:</strong> This tool provides general legal information for educational purposes. It is not a substitute for professional legal advice. Always consult a qualified attorney for specific legal matters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AI Legal Assistant. All rights reserved.</p>
+            <p>Powered by CrewAI | Machine Learning | Legal Expertise</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
