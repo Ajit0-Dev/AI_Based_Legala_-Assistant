@@ -2,12 +2,21 @@
 import os
 from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
-from crew import legal_assistant_crew
 
 load_dotenv()
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_SORT_KEYS'] = False
+
+# Lazy load crew to avoid initialization errors
+_crew = None
+
+def get_crew():
+    global _crew
+    if _crew is None:
+        from crew import legal_assistant_crew
+        _crew = legal_assistant_crew
+    return _crew
 
 @app.route('/')
 def index():
@@ -24,7 +33,8 @@ def analyze_case():
         if not case_description:
             return jsonify({'success': False, 'error': 'Case description cannot be empty'}), 400
         
-        result = legal_assistant_crew.kickoff(inputs={"user_input": case_description})
+        crew = get_crew()
+        result = crew.kickoff(inputs={"user_input": case_description})
         return jsonify({'success': True, 'result': str(result)}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
